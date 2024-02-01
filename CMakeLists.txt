@@ -25,6 +25,11 @@ find_package(rclcpp REQUIRED)
 find_package(Eigen3 REQUIRED)
 find_package(GDAL 3 REQUIRED)
 
+# Fix for yaml_cpp not resolving correctly on macOS
+if (APPLE)
+  find_package(yaml_cpp_vendor REQUIRED)
+  link_directories(${yaml_cpp_vendor_LIBRARY_DIRS})
+endif()
 
 # Reverse compatability for GDAL<3.5
 # https://gdal.org/development/cmake.html
